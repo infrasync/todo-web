@@ -1,5 +1,3 @@
-
-
 import HomePageFeatures from '@/components/features/HomePageFeatures';
 import PageLayout from '@/components/layouts/PageLayout';
 

@@ -1,7 +1,7 @@
 'use client';
 
-import { ActionIcon, TextInput } from '@mantine/core';
 import { Icon } from '@iconify/react';
+import { ActionIcon, TextInput } from '@mantine/core';
 
 export default function SearchTodos() {
   return (

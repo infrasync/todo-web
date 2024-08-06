@@ -1,13 +1,5 @@
-import {
-  Button,
-  Modal,
-  Text,
-  Title,
-  Alert,
-  MantineColor,
-  Flex,
-} from '@mantine/core';
 import { Icon } from '@iconify/react';
+import { Alert, Button, Flex, MantineColor, Modal, Title } from '@mantine/core';
 
 interface ConfirmationModalProps {
   title: string;
@@ -15,6 +7,7 @@ interface ConfirmationModalProps {
   onConfirm: () => void;
   onCancel: () => void;
   color: MantineColor;
+  opened: boolean;
 }
 
 export default function ConfirmationModal({
@@ -23,10 +16,11 @@ export default function ConfirmationModal({
   onConfirm,
   onCancel,
   color,
+  opened,
 }: ConfirmationModalProps) {
   return (
     <Modal
-      opened={false}
+      opened={opened}
       onClose={onCancel}
       size="lg"
       radius="md"
@@ -35,7 +29,7 @@ export default function ConfirmationModal({
       closeOnEscape={false}
     >
       <Flex direction="column" gap="md">
-      <Title order={4}>Add Todo</Title>
+        <Title order={4}>Add Todo</Title>
 
         <Alert
           icon={<Icon icon="tabler:alert-circle" />}
@@ -45,7 +39,9 @@ export default function ConfirmationModal({
           {description}
         </Alert>
         <Flex direction="row" gap="md" justify="end">
-          <Button onClick={onCancel} radius="md" color="orange.4">Cancel</Button>
+          <Button onClick={onCancel} radius="md" color="orange.4">
+            Cancel
+          </Button>
           <Button onClick={onConfirm} color={color} radius="md">
             Confirm
           </Button>

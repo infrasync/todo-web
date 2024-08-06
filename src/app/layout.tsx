@@ -32,11 +32,11 @@ export default async function LocaleLayout({ children }: Props) {
         />
       </head>
       <body className={GeistSans.className}>
-          <MantineProvider theme={theme}>
-            <Notifications position="top-right" />
-            <NavigationProgress aria-label="Progress Load Bar" />
-            {children}
-          </MantineProvider>
+        <MantineProvider theme={theme}>
+          <Notifications position="top-right" />
+          <NavigationProgress aria-label="Progress Load Bar" />
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );

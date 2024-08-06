@@ -1,5 +1,4 @@
-import { Icon } from '@iconify/react';
-import { Flex, Card, Text, ActionIcon } from '@mantine/core';
+import { Card, Text } from '@mantine/core';
 
 interface Quote {
   _id: string;

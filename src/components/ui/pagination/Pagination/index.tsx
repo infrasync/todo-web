@@ -1,6 +1,6 @@
 'use client';
 
-import { Pagination as MantinePagination, Text, Flex } from '@mantine/core';
+import { Flex, Pagination as MantinePagination } from '@mantine/core';
 
 interface PaginationProps {
   total: number;
@@ -15,9 +15,6 @@ export default function PaginationComponent({
 }: PaginationProps) {
   return (
     <Flex direction="column" gap="md" align="center">
-        <Text fw={500}>
-            {page * 4} - {(page + 1) * 4} of {total}
-        </Text>
       <MantinePagination
         total={total}
         value={page}
