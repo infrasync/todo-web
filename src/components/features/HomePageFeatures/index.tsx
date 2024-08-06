@@ -58,7 +58,7 @@ const HomePageFeatures: React.FC = () => {
   );
 
   return (
-    <Container py="md">
+    <Container py="md" w={rem(700)}>
       <Flex direction="column" gap="xl">
         <RandomQuote />
         <TextInput

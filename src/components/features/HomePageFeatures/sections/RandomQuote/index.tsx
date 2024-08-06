@@ -1,6 +1,8 @@
-import { Card, Text } from '@mantine/core';
+import { Button, Card, Flex, rem, Skeleton, Text } from '@mantine/core';
 
-interface Quote {
+import { useGetQuote } from '@/services/quote/useGetQuote';
+
+export interface Quote {
   _id: string;
   content: string;
   author: string;
@@ -12,23 +14,31 @@ interface Quote {
 }
 
 export default function RandomQuote() {
-  const quotes: Quote[] = [
-    {
-      _id: '1',
-      content: 'The only way to do great work is to love what you do.',
-      author: 'Steve Jobs',
-      tags: ['inspiration', 'success'],
-      authorSlug: 'steve-jobs',
-      length: 100,
-      dateAdded: '2023-01-01',
-      dateModified: '2023-01-01',
-    },
-  ];
+  const { data, refetch, isFetching } = useGetQuote();
 
   return (
     <Card withBorder={false} radius="md">
-      <Text fw={500}>"{quotes[0].content}"</Text>{' '}
-      <strong>{quotes[0].author}</strong>
+      {isFetching ? (
+        <Flex direction="column" gap="xs">
+          <Skeleton h={12} w={rem(300)} />
+          <Skeleton h={12} w={rem(260)} />
+          <Skeleton h={12} w={rem(100)} />
+        </Flex>
+      ) : (
+        <Flex direction="column" gap="xs">
+          <Text fw={500}>"{data?.content || ''}"</Text>{' '}
+          <strong>{data?.author || ''}</strong>{' '}
+        </Flex>
+      )}
+      <Button
+        radius="md"
+        color="indigo.7"
+        mt="sm"
+        w="fit-content"
+        onClick={() => refetch()}
+      >
+        Get Random Quote
+      </Button>
     </Card>
   );
 }

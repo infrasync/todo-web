@@ -12,8 +12,8 @@ import '@mantine/nprogress/styles.css';
 import { theme } from '@/theme';
 
 export const metadata = {
-  title: 'Todoar - Opinionated Next.js Starter',
-  description: 'I am using Mantine with Next.js!',
+  title: 'Todoar - Todo By Roni Ardiyanto',
+  description: 'Doing it Now.',
 };
 
 type Props = {
