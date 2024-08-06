@@ -3,6 +3,7 @@ import { Alert, Button, Flex, MantineColor, Modal, Title } from '@mantine/core';
 
 interface ConfirmationModalProps {
   title: string;
+  alertTitle: string;
   description: string;
   onConfirm: () => void;
   onCancel: () => void;
@@ -17,6 +18,7 @@ export default function ConfirmationModal({
   onCancel,
   color,
   opened,
+  alertTitle,
 }: ConfirmationModalProps) {
   return (
     <Modal
@@ -29,12 +31,12 @@ export default function ConfirmationModal({
       closeOnEscape={false}
     >
       <Flex direction="column" gap="md">
-        <Title order={4}>Add Todo</Title>
+        <Title order={4}>{title}</Title>
 
         <Alert
           icon={<Icon icon="tabler:alert-circle" />}
           color={color}
-          title={title}
+          title={alertTitle}
         >
           {description}
         </Alert>

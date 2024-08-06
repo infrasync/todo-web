@@ -9,6 +9,7 @@ import ConfirmationModal from '@/components/ui/modal/ConfirmationModal';
 import { useTodoStore } from '@/stores/useTodo';
 
 import { Todo } from '@/utils/dummy-data/todo';
+import { useShowNotification } from '@/utils/useShowNotification';
 
 import ModalMutationTodo from '../ModalMutationTodo';
 
@@ -19,6 +20,16 @@ export default function TodoCard(props: Todo) {
   const [openedUpdateModal, { toggle: toggleUpdateModal }] =
     useDisclosure(false);
   const { removeTodo } = useTodoStore();
+  const showNotification = useShowNotification();
+
+  const handleDelete = () => {
+    removeTodo(props.id);
+    showNotification({
+      title: 'Deleted',
+      message: 'Todo deleted successfully',
+      type: 'info',
+    });
+  };
 
   return (
     <Card withBorder radius="md" id={props.id} key={props.id}>
@@ -67,9 +78,10 @@ export default function TodoCard(props: Todo) {
       </Flex>
       <ConfirmationModal
         opened={openedDeleteModal}
-        title="Are you sure?"
+        title="Delete Todo"
+        alertTitle="Are you sure to delete this todo?"
         description="This action cannot be undone."
-        onConfirm={() => removeTodo(props.id)}
+        onConfirm={() => handleDelete()}
         onCancel={() => toggleDeleteModal()}
         color="red.6"
       />

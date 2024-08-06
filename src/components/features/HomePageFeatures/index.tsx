@@ -11,8 +11,9 @@ import {
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { parseAsInteger, parseAsString, useQueryState } from 'nuqs';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
+import { FadeInShow } from '@/components/ui/animations/FadeInShow';
 import Pagination from '@/components/ui/pagination/Pagination';
 
 import { useTodoStore } from '@/stores/useTodo';
@@ -31,6 +32,30 @@ const HomePageFeatures: React.FC = () => {
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
 
   const [debouncedSearch] = useDebouncedValue(search, 500);
+
+  const todosFiltered = useMemo(
+    () =>
+      todos
+        .slice((page - 1) * 4, page * 4)
+        .filter((v) => {
+          const trimmedQuery = debouncedSearch.trim(); // Menghilangkan spasi di awal/akhir
+
+          // Jika query kosong, kembalikan true untuk semua item
+          if (trimmedQuery === '') {
+            return true;
+          }
+
+          // Buat regex dan uji judul todo
+          const regex = new RegExp(trimmedQuery, 'i');
+          return regex.test(v.todo);
+        })
+        .map((todo) => (
+          <FadeInShow key={todo.id}>
+            <TodoCard key={todo.id} {...todo} />{' '}
+          </FadeInShow>
+        )),
+    [todos, page, debouncedSearch],
+  );
 
   return (
     <Container py="md">
@@ -58,26 +83,11 @@ const HomePageFeatures: React.FC = () => {
           Add Todo
         </Button>
         <Flex direction="column" gap="sm" mih={rem(320)}>
-          {todos
-            .slice((page - 1) * 4, page * 4)
-            .filter((v) => {
-              const trimmedQuery = debouncedSearch.trim(); // Menghilangkan spasi di awal/akhir
-
-              // Jika query kosong, kembalikan true untuk semua item
-              if (trimmedQuery === '') {
-                return true;
-              }
-
-              // Buat regex dan uji judul todo
-              const regex = new RegExp(trimmedQuery, 'i');
-              return regex.test(v.todo);
-            })
-            .map((todo) => (
-              <TodoCard key={todo.id} {...todo} />
-            ))}
+          {todosFiltered}
         </Flex>
         <Flex justify="center">
           <Pagination
+            totalData={todos.length}
             total={Math.ceil(todos.length / 4)}
             page={page}
             onChange={(v) => setPage(v)}
