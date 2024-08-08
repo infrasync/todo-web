@@ -32,7 +32,13 @@ export default function TodoCard(props: Todo) {
   };
 
   return (
-    <Card withBorder radius="md" id={props.id} key={props.id}>
+    <Card
+      withBorder
+      radius="md"
+      id={props.id}
+      key={props.id}
+      data-testid="todo-card"
+    >
       <Flex direction="row" gap="md" justify="space-between" align="center">
         <Flex direction="row" gap="md" align="center">
           <Checkbox onChange={toggle} checked={checked} />

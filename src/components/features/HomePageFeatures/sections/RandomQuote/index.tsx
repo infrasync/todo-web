@@ -17,7 +17,7 @@ export default function RandomQuote() {
   const { data, refetch, isFetching } = useGetQuote();
 
   return (
-    <Card withBorder={false} radius="md">
+    <Card withBorder={false} radius="md" data-testid="random-quote-card">
       {isFetching ? (
         <Flex direction="column" gap="xs">
           <Skeleton h={12} w={rem(300)} />

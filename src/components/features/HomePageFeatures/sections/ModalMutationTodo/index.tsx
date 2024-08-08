@@ -71,6 +71,7 @@ export default function ModalMutationTodo(props: Props) {
       opened={props.opened}
       onClose={props.onClose}
       radius="md"
+      data-testid="todo-modal-mutation"
     >
       <Flex direction="column" gap="md">
         <Title order={4}>
@@ -82,6 +83,9 @@ export default function ModalMutationTodo(props: Props) {
           defaultValue={todos.find((todo) => todo.id === props.idTodo)?.todo}
           render={({ field }) => (
             <Textarea
+              required
+              withAsterisk
+              data-testid="todo-textarea"
               placeholder="Todo"
               radius="md"
               {...field}
