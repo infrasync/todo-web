@@ -32,19 +32,23 @@ export const useTodoStore = create<TodoState>((set) => ({
     }));
   },
   updateTodo: (id: string, todo: Pick<Todo, 'todo'>) => {
-    const currentTodo = todos.find((todoItem) => todoItem.id === id);
-    if (currentTodo) {
-      const updatedTodo: Todo = {
-        ...currentTodo,
-        todo: todo.todo,
-        updatedAt: new Date().toISOString(),
-      };
-
-      set((state) => ({
-        todos: state.todos.map((todoItem) =>
-          todoItem.id === id ? updatedTodo : todoItem,
-        ),
-      }));
-    }
+    set((state) => {
+      const currentTodo = state.todos.find((todoItem) => todoItem.id === id);
+      if (currentTodo?.todo) {
+        const updatedTodo: Todo = {
+          id: currentTodo?.id,
+          done: currentTodo?.done,
+          todo: todo.todo,
+          updatedAt: new Date().toISOString(),
+          createdAt: currentTodo?.createdAt,
+        };
+        return {
+          todos: state.todos.map((todoItem) =>
+            todoItem.id === id ? updatedTodo : todoItem,
+          ),
+        };
+      }
+      return state;
+    });
   },
 }));
